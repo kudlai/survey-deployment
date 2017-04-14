@@ -1,0 +1,26 @@
+---
+- hosts: all
+  gather_facts: False
+  roles:
+    - common/ansible_ready
+
+- hosts: [db]
+  vars:
+    network_name: survey_net
+    db_root_password: gTdOChfouTy2Z3nn
+
+  roles:
+    - { role: docker/host }
+    - { role: docker/network }
+    - { role: application/mysql-container,
+        container_name: "survey-mysql",
+        db_name: "employees",
+        db_user: "employees",
+        db_password: "bzeUcxN1LW4BzOYy",
+        config_dir: "/var/lib/docker/survey"
+      }
+    - { role: application/dbmanager-container,
+        container_name: "survey-dbmanager",
+        db_host: "survey-mysql"
+      }
+

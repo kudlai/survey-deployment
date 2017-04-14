@@ -1,0 +1,20 @@
+---
+
+- name: create dbmanager container
+  docker_container:
+    name: "{{ container_name }}"
+    #restart_policy: always
+    #restart: yes
+    recreate: yes
+    image: ikudlay/survey-dbmanager
+    env:
+      MYSQL_PASSWORD: "{{ db_root_password }}"
+      MYSQL_HOST: "{{ db_host }}"
+    #volumes:
+      #- "{{ dbdump_dest }}:/docker-entrypoint-initdb.d"
+      #- /var/lib/mysql
+      #- "{{ db_config_dir }}:/etc/mysql/conf.d"
+    networks:
+      - name: "{{ network_name }}"
+
+

@@ -1,0 +1,4 @@
+---
+- name: "create virtual docker network '{{ network_name }}'"
+  docker_network:
+    name: "{{ network_name }}"

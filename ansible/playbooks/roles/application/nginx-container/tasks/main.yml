@@ -1,0 +1,15 @@
+---
+- file: path="{{ config_dir }}" state=directory
+
+- name: create nginx container
+  docker_container:
+    name: "{{ container_name }}"
+    restart_policy: always
+    image: nginx:stable
+    volumes:
+      - "{{ config_dir }}:/etc/nginx/conf.d"
+
+- name: put application vhost nginx config
+  template: src=vhost.tpl dest="{{ config_dir }}/01_app.conf"
+  notify: nginx container restart
+

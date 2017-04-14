@@ -1,0 +1,5 @@
+[all_hosts]
+test ansible_ssh_host=192.168.0.126 ansible_ssh_user=root
+
+[db]
+test

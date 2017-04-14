@@ -1,0 +1,3 @@
+---
+ - name: install minimum Python 2.X environment to run Ansible and its modules
+   raw: apt --yes install python python-simplejson sudo

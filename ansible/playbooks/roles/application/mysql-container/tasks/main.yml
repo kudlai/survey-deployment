@@ -1,0 +1,21 @@
+---
+
+- name: create mariadb container
+  docker_container:
+    name: "{{ container_name }}"
+    restart_policy: always
+    restart: yes
+    image: mariadb
+    env:
+      MYSQL_USER: "{{ db_user }}"
+      MYSQL_DATABASE: "{{ db_name }}"
+      MYSQL_PASSWORD: "{{ db_password }}"
+      MYSQL_ROOT_PASSWORD: "{{ db_root_password }}"
+    volumes:
+      - /var/lib/mysql
+    networks:
+      - name: "{{ network_name }}"
+        aliases:
+          - "{{ container_name }}"
+
+

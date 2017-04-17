@@ -1,11 +1,11 @@
 ---
 
-- name: create mariadb container
+- name: create mysql container
   docker_container:
     name: "{{ container_name }}"
     restart_policy: always
     restart: yes
-    image: mariadb
+    image: mysql
     env:
       MYSQL_USER: "{{ db_user }}"
       MYSQL_DATABASE: "{{ db_name }}"

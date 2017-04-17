@@ -1,0 +1,22 @@
+---
+
+- name: create application container
+  docker_container:
+    name: "{{ container_name }}"
+    #restart_policy: always
+    #restart: yes
+    recreate: yes
+    image: ikudlay/survey-application
+    env:
+      MYSQL_USER: "{{ db_user }}"
+      MYSQL_PASSWORD: "{{ db_password }}"
+      MYSQL_HOST: "{{ db_host }}"
+      MYSQL_PORT: "{{ db_port }}"
+    #volumes:
+      #- "{{ dbdump_dest }}:/docker-entrypoint-initdb.d"
+      #- /var/lib/mysql
+      #- "{{ db_config_dir }}:/etc/mysql/conf.d"
+    networks:
+      - name: "{{ network_name }}"
+
+

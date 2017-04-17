@@ -1,7 +1,3 @@
-upstream application {
-    server application;
-}
-
 server {
     listen 0.0.0.0:80 default;
 
@@ -9,6 +5,8 @@ server {
 
 
     location / {
-        proxy_pass http://application;
+        resolver 127.0.0.11 ipv6=off valid=5s;
+        set $upstream_app {{ application_container_name }};
+        proxy_pass http://$upstream_app:8000;
     }
 }

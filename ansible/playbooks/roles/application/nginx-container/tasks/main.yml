@@ -1,13 +1,18 @@
 ---
-- file: path="{{ config_dir }}" state=directory
+- file: path="{{ config_dir }}" state=directory recurse="yes"
 
 - name: create nginx container
   docker_container:
     name: "{{ container_name }}"
     restart_policy: always
     image: nginx:stable
+    published_ports:
+      - "80:80"
     volumes:
       - "{{ config_dir }}:/etc/nginx/conf.d"
+    networks:
+      - name: "{{ network_name }}"
+
 
 - name: put application vhost nginx config
   template: src=vhost.tpl dest="{{ config_dir }}/01_app.conf"

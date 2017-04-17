@@ -15,7 +15,5 @@
       - /var/lib/mysql
     networks:
       - name: "{{ network_name }}"
-        aliases:
-          - "{{ container_name }}"
 
 

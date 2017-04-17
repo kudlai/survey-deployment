@@ -10,6 +10,8 @@
     env:
       MYSQL_PASSWORD: "{{ db_root_password }}"
       MYSQL_HOST: "{{ db_host }}"
+      MYSQL_USER: "root"
+      MYSQL_PORT: 3306
     #volumes:
       #- "{{ dbdump_dest }}:/docker-entrypoint-initdb.d"
       #- /var/lib/mysql

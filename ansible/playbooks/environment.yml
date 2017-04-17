@@ -24,3 +24,27 @@
         db_host: "survey-mysql"
       }
 
+
+- hosts: [application]
+  vars:
+    network_name: survey_net
+    
+  roles:
+    - { role: application/application-container,
+        container_name: "survey-application",
+        db_host: "survey-mysql",
+        db_password: "bzeUcxN1LW4BzOYy",
+        db_port: 3306,
+        db_user: "employees"
+      }
+
+- hosts: [frontend]
+  vars:
+    network_name: survey_net
+  roles:
+    - { role: application/nginx-container,
+        container_name: "survey-nginx",
+        config_dir: "/opt/survey/nginx-conf.d",
+        application_container_name: "survey-application"
+      }
+ 

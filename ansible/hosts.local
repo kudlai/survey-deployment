@@ -1,0 +1,11 @@
+[all_hosts]
+test ansible_connection=local
+
+[db]
+test
+
+[application]
+test
+
+[frontend]
+test

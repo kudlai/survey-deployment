@@ -1,10 +1,12 @@
 ---
 - hosts: all
+  become: yes
   gather_facts: False
   roles:
     - common/ansible_ready
 
 - hosts: [db]
+  become: yes
   vars:
     network_name: survey_net
     db_root_password: gTdOChfouTy2Z3nn
@@ -26,6 +28,7 @@
 
 
 - hosts: [application]
+  become: yes
   vars:
     network_name: survey_net
     
@@ -39,6 +42,7 @@
       }
 
 - hosts: [frontend]
+  become: yes
   vars:
     network_name: survey_net
   roles:

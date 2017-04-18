@@ -72,16 +72,20 @@ The second option was to put this functionality to database instance, but it wou
 
 Initial migration is built with git checkout of test_db repo, then it gets rid of the unnecesary for our purposes .git directory, and compressed for images minimization sake.
 
+The container consumes database parameters from environment variables which used by dbmanager python script directly.
+
 ## application container
 [Image repo](https://github.com/kudlai/survey-application)
 
 Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 
-Contains python uwsgi flask application, that provides information about employees in json.
+It contains python uwsgi flask application, that provides information about employees in json.
 
 Application is run as noroot:noroot, image based on alpine for size minimization purposes.
 
 Application listens on port 8000 as http server, it exposed by container to the internal network.
+
+The container consumes database parameters from environment variables and substitutes them to the application yaml configuration file with envsubst.
 
 ## nginx container
 Uses official [nginx](https://hub.docker.com/_/nginx/) image, with virtual host configuration file mounted to conf.d.

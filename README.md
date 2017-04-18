@@ -11,11 +11,10 @@ clone deployment repo:
 
 ```
 git clone https://github.com/kudlai/survey-deployment.git
-
 cd survey-deployment/
 ```
 
-## localhost run:
+## localhost run
 if you want to apply playbook to localhost and you are root just run:
 
 ```
@@ -28,12 +27,16 @@ ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts.local -K
 ```
 and type the user's password
 
-## remote root run:
+## remote run
 if you want to apply playbook to remote host and it accessible by ssh with a root user,
 
-then edit file: "ansible/hosts", and replace ip in it with your remote host address.
+then edit file: "ansible/hosts", 
+```
+nano ansible/hosts
+```
+and replace ip and user in it with your remote host address and your user name.
 
-when this is done, simply run:
+when this is done, if your user is root, simply run:
 ```
 ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts
 ```

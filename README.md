@@ -1,5 +1,5 @@
 # Deployment instruction
-Install dependencies on the control host (git and ansible)
+Install dependencies on the control host (git and ansible).
 
 ```
 apt update
@@ -7,7 +7,7 @@ apt install -y git python-pip libssl-dev
 pip install ansible
 ```
 
-Clone deployment repo:
+Clone deployment repo.
 
 ```
 git clone https://github.com/kudlai/survey-deployment.git

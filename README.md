@@ -90,4 +90,4 @@ The container consumes database parameters from the environment variables and su
 ## NGINX container
 Uses official [nginx](https://hub.docker.com/_/nginx/) image, with virtual host configuration file mounted to conf.d.
 
-Container binds to the hosts 80 port, and proxies all requests to application container.
+Container binds to the host's 80 port, and proxies all requests to the application container.

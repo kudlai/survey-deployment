@@ -7,7 +7,7 @@ apt install -y git python-pip libssl-dev
 pip install ansible
 ```
 
-clone deployment repo:
+Clone deployment repo:
 
 ```
 git clone https://github.com/kudlai/survey-deployment.git
@@ -24,11 +24,11 @@ Please make sure that you have set up your ssh key on host, and you are able to 
 
 You need to apply playbook `ansible/playbooks/environment.yml` to deploy the application.
 
-To do this just simply run:
+To do this simply run:
 ```
 ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts -K
 ```
-And type your users password.
+And type your user password.
 
 If your user is root just omit -K parameter.
 
@@ -37,11 +37,11 @@ You can also run it locally with `ansible/hosts.local` inventory file.
 Wait until ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
 
 # Testing
-When deployment is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/
+When deployment is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/ .
 
-on the route "/" application prints json list of fullnames of required emloyees,
+On the route "/" application prints json list of fullnames of required emloyees.
 
-on the route "/full" application prints json list of records containing all the fields of the emloyees table which fulfill the set requirements.
+On the route "/full" application prints json list of records containing all the fields of the emloyees table which fulfill the set requirements.
 
 
 # System description
@@ -55,7 +55,7 @@ The whole system consists of 4 containers, connected to internal bridge network 
 ## mysql container
 The container uses official [mysql](https://hub.docker.com/_/mysql/) image.
 
-It has one anonymous volume mounted to /var/lib/mysql to obtain persistency of data.
+It has one anonymous volume mounted to /var/lib/mysql in order to obtain persistency of data.
 
 The container exposes port 3306 to internal network.
 
@@ -64,7 +64,7 @@ The container exposes port 3306 to internal network.
 
 Image is stored on the docker hub [ikudlay/survey-dbmanager](https://hub.docker.com/r/ikudlay/survey-dbmanager/).
 
-Contains simple self-developed python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
+It contains simple self-developed python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
 
 I decided to serve it as separate container, as normally migration should be taken care of by the application, but main application doesn't cover database management and is used only to show a single report.
 
@@ -83,9 +83,9 @@ It contains python uwsgi flask application, that provides information about empl
 
 Application is run as noroot:noroot, image based on alpine for size minimization purposes.
 
-Application listens on port 8000 as http server, it exposed by container to the internal network.
+Application listens on port 8000 as http server, it is exposed by container to the internal network.
 
-The container consumes database parameters from environment variables and substitutes them to the application yaml configuration file with envsubst.
+The container consumes database parameters from the environment variables and substitutes them to the application yaml configuration file with envsubst.
 
 ## nginx container
 Uses official [nginx](https://hub.docker.com/_/nginx/) image, with virtual host configuration file mounted to conf.d.

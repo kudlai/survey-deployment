@@ -1,0 +1,9 @@
+---
+db_root_password: "gTdOChfouTy2Z3nn"
+db_name: "employees"
+db_user: "employees"
+db_password: "bzeUcxN1LW4BzOYy"
+db_host: "survey-mysql"
+db_port: 3306
+network_name: "survey_net"
+application_container_name: "survey-application"

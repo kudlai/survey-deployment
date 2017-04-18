@@ -6,28 +6,24 @@
     - common/ansible_ready
 
 - hosts: [db]
+  vars_files:
+    - vars/common.yml
   become: yes
-  vars:
-    network_name: survey_net
-    db_root_password: gTdOChfouTy2Z3nn
-
   roles:
     - { role: docker/host }
     - { role: docker/network }
     - { role: application/mysql-container,
         container_name: "survey-mysql",
-        db_name: "employees",
-        db_user: "employees",
-        db_password: "bzeUcxN1LW4BzOYy",
         config_dir: "/var/lib/docker/survey"
       }
     - { role: application/dbmanager-container,
         container_name: "survey-dbmanager",
-        db_host: "survey-mysql"
       }
 
 
 - hosts: [application]
+  vars_files:
+    - vars/common.yml
   become: yes
   vars:
     network_name: survey_net
@@ -35,13 +31,11 @@
   roles:
     - { role: application/application-container,
         container_name: "survey-application",
-        db_host: "survey-mysql",
-        db_password: "bzeUcxN1LW4BzOYy",
-        db_port: 3306,
-        db_user: "employees"
       }
 
 - hosts: [frontend]
+  vars_files:
+    - vars/common.yml
   become: yes
   vars:
     network_name: survey_net

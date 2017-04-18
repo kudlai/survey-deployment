@@ -14,40 +14,28 @@ git clone https://github.com/kudlai/survey-deployment.git
 cd survey-deployment/
 ```
 
-## localhost run
-if you want to apply playbook to localhost and you are root just run:
+Then you need to edit inventory file `ansible/hosts` and set there your host address and your user name.
 
-```
-ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts.local
-```
-
-if you are working under non-priveleged user which is in sudoers list, run:
-```
-ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts.local -K
-```
-and type the user's password
-
-## remote run
-if you want to apply playbook to remote host and it accessible by ssh with a root user,
-
-then edit file: "ansible/hosts", 
 ```
 nano ansible/hosts
 ```
-and replace ip and user in it with your remote host address and your user name.
 
-when this is done, if your user is root, simply run:
-```
-ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts
-```
-Or if you have ssh access of unprivileged user who is in sudoers list, run it so:
+Please make sure that you have set up your ssh key on host, and you are able to connect to it without typing password.
+
+You need to apply playbook `ansible/playbooks/environment.yml` to deploy the application.
+
+To do this just simply run:
 ```
 ansible-playbook ansible/playbooks/environment.yml -i ansible/hosts -K
 ```
-and type the users password
+And type your users password.
+
+If your user is root just omit -K parameter.
+
+Wait until ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
 
 # Testing:
-When ansible is done, you can access application by typing it's adrress in browser address form, 
+When ansible is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/
 
 on the route "/" application prints json list of fullnames of required emloyees,
 
@@ -63,10 +51,16 @@ The whole system consists of 4 containers, connected to internal bridge network 
 
 
 ## mysql container
-It uses default mysql image, has one anonymous volume, mounted to /var/lib/mysql, for obtaining persistency of data, exposes port 3306 to internal network.
+The container uses official [mysql](https://hub.docker.com/_/mysql/) image.
+
+It has one anonymous volume mounted to /var/lib/mysql to obtain persistency of data.
+
+The container exposes port 3306 to internal network.
 
 ## dbmanager container
 https://github.com/kudlai/survey-dbmanager
+
+Image is stored on the docker hub [ikudlay/survey-dbmanager](https://hub.docker.com/r/ikudlay/survey-dbmanager/).
 
 Contains simple self-developed python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
 
@@ -74,12 +68,12 @@ I decided to serve it as separate container, as normally migration should be tak
 
 The second option was to put this functionality to database instance, but it would be a really unflexible solution.
 
-Image is stored on the docker hub (ikudlay/survey-dbmanager).
-
 Initial migration is built with git checkout of test_db repo, then it gets rid of the unnecesary for our purposes .git directory, and compressed for images minimization sake.
 
 ## application container
 https://github.com/kudlai/survey-application
+
+Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 
 Contains python uwsgi flask application, that provides information about employees in json.
 
@@ -88,6 +82,6 @@ Application is run as noroot:noroot, image based on alpine for size minimization
 Application listens on port 8000 as http server, it exposed by container to the internal network.
 
 ## nginx container
-Uses default nginx image, with virtual host configuration file mounted to conf.d.
+Uses official [nginx](https://hub.docker.com/_/nginx/) image, with virtual host configuration file mounted to conf.d.
 
 Container binds to the hosts 80 port, and proxies all requests to application container.

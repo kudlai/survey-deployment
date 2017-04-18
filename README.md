@@ -32,10 +32,12 @@ And type your users password.
 
 If your user is root just omit -K parameter.
 
+You can also run it locally with `ansible/hosts.local` inventory file.
+
 Wait until ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
 
 # Testing
-When ansible is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/
+When deployment is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/
 
 on the route "/" application prints json list of fullnames of required emloyees,
 
@@ -58,7 +60,7 @@ It has one anonymous volume mounted to /var/lib/mysql to obtain persistency of d
 The container exposes port 3306 to internal network.
 
 ## dbmanager container
-https://github.com/kudlai/survey-dbmanager
+[Image repo](https://github.com/kudlai/survey-dbmanager)
 
 Image is stored on the docker hub [ikudlay/survey-dbmanager](https://hub.docker.com/r/ikudlay/survey-dbmanager/).
 
@@ -71,7 +73,7 @@ The second option was to put this functionality to database instance, but it wou
 Initial migration is built with git checkout of test_db repo, then it gets rid of the unnecesary for our purposes .git directory, and compressed for images minimization sake.
 
 ## application container
-https://github.com/kudlai/survey-application
+[Image repo](https://github.com/kudlai/survey-application)
 
 Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 

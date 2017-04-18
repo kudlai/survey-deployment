@@ -64,7 +64,7 @@ The container exposes port 3306 to internal network.
 
 Image is stored on the docker hub [ikudlay/survey-dbmanager](https://hub.docker.com/r/ikudlay/survey-dbmanager/).
 
-It contains simple self-developed Python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
+It contains simple self-developed Python + Bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
 
 I decided to serve it as separate container, as normally migration should be taken care of by the application, but main application doesn't cover database management and is used only to show a single report.
 
@@ -79,7 +79,7 @@ The container consumes database parameters from environment variables which used
 
 Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 
-It contains python uWSGI Flask application, that provides information about employees in json.
+It contains Python uWSGI Flask application, that provides information about employees in json.
 
 Application is run as noroot:noroot, image based on Alpine for size minimization purposes.
 

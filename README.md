@@ -1,4 +1,4 @@
-# Deployment instruction:
+# Deployment instruction
 Install dependencies on the control host (git and ansible)
 
 ```
@@ -34,7 +34,7 @@ If your user is root just omit -K parameter.
 
 Wait until ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
 
-# Testing:
+# Testing
 When ansible is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/
 
 on the route "/" application prints json list of fullnames of required emloyees,

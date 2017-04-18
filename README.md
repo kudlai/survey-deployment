@@ -79,7 +79,7 @@ The container consumes database parameters from environment variables which used
 
 Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 
-It contains Python uWSGI Flask application, that provides information about employees in json.
+It contains uWSGI Python + Flask application, that provides information about employees in json.
 
 Application is run as noroot:noroot, image based on Alpine for size minimization purposes.
 

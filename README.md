@@ -1,5 +1,5 @@
 # Deployment instruction
-Install dependencies on the control host (git and ansible).
+Install dependencies on the control host (Git and Ansible).
 
 ```
 apt update
@@ -20,9 +20,9 @@ Then you need to edit inventory file `ansible/hosts` and set there your host add
 nano ansible/hosts
 ```
 
-Please make sure that you have set up your ssh key on host, and you are able to connect to it without typing password.
+Please, make sure that you have set up your ssh key on host, and you are able to connect to it without typing password.
 
-You need to apply playbook `ansible/playbooks/environment.yml` to deploy the application.
+You need to run the playbook `ansible/playbooks/environment.yml` to deploy the application.
 
 To do this simply run:
 ```
@@ -34,10 +34,10 @@ If your user is root just omit -K parameter.
 
 You can also run it locally with `ansible/hosts.local` inventory file.
 
-Wait until ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
+Wait until Ansible finishes execution, and until dbmanager finishes database deployment (it takes about a minute).
 
 # Testing
-When deployment is done, you can access application by typing it's adrress in browser address form, e.g. http://127.0.0.1/ .
+When deployment is done, you can access application by typing its address in browser address form, e.g. http://127.0.0.1/ .
 
 On the route "/" application prints json list of fullnames of required emloyees.
 
@@ -45,26 +45,26 @@ On the route "/full" application prints json list of records containing all the 
 
 
 # System description
-The whole system consists of 4 containers, connected to internal bridge network "survey_net":
-* mysql container
-* dbmanager container
-* application container
-* nginx container
+The whole system consists of 4 containers connected to internal bridge network "survey_net":
+* MySQL container
+* DBManager container
+* Application container
+* NGINX container
 
 
-## mysql container
+## MySQL container
 The container uses official [mysql](https://hub.docker.com/_/mysql/) image.
 
 It has one anonymous volume mounted to /var/lib/mysql in order to obtain persistency of data.
 
 The container exposes port 3306 to internal network.
 
-## dbmanager container
+## DBManager container
 [Image repo](https://github.com/kudlai/survey-dbmanager)
 
 Image is stored on the docker hub [ikudlay/survey-dbmanager](https://hub.docker.com/r/ikudlay/survey-dbmanager/).
 
-It contains simple self-developed python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
+It contains simple self-developed Python + bash application for database deployment and migration, it ensures that each database change is applied to database instance only once, in the right order.
 
 I decided to serve it as separate container, as normally migration should be taken care of by the application, but main application doesn't cover database management and is used only to show a single report.
 
@@ -74,20 +74,20 @@ Initial migration is built with git checkout of test_db repo, then it gets rid o
 
 The container consumes database parameters from environment variables which used by dbmanager python script directly.
 
-## application container
+## Application container
 [Image repo](https://github.com/kudlai/survey-application)
 
 Image is stored on the docker hub [ikudlay/survey-application](https://hub.docker.com/r/ikudlay/survey-application/)
 
-It contains python uwsgi flask application, that provides information about employees in json.
+It contains python uWSGI Flask application, that provides information about employees in json.
 
-Application is run as noroot:noroot, image based on alpine for size minimization purposes.
+Application is run as noroot:noroot, image based on Alpine for size minimization purposes.
 
 Application listens on port 8000 as http server, it is exposed by container to the internal network.
 
 The container consumes database parameters from the environment variables and substitutes them to the application yaml configuration file with envsubst.
 
-## nginx container
+## NGINX container
 Uses official [nginx](https://hub.docker.com/_/nginx/) image, with virtual host configuration file mounted to conf.d.
 
 Container binds to the hosts 80 port, and proxies all requests to application container.

@@ -4,13 +4,13 @@
   gather_facts: False
   roles:
     - common/ansible_ready
+    - docker/host
 
 - hosts: [db]
   vars_files:
     - vars/common.yml
   become: yes
   roles:
-    - { role: docker/host }
     - { role: docker/network }
     - { role: application/mysql-container,
         container_name: "survey-mysql",

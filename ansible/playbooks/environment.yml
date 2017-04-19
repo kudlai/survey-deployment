@@ -15,13 +15,11 @@
   become: yes
   roles:
     - { role: application/mysql-container,
-        container_name: "survey-mysql",
-        config_dir: "/var/lib/docker/survey"
+        container_name: "survey-mysql"
       }
     - { role: application/dbmanager-container,
-        container_name: "survey-dbmanager",
+        container_name: "survey-dbmanager"
       }
-
 
 - hosts: [application]
   vars_files:
@@ -29,10 +27,9 @@
   become: yes
   vars:
     network_name: survey_net
-    
   roles:
     - { role: application/application-container,
-        container_name: "survey-application",
+        container_name: "survey-application"
       }
 
 - hosts: [frontend]
@@ -44,7 +41,6 @@
   roles:
     - { role: application/nginx-container,
         container_name: "survey-nginx",
-        config_dir: "/opt/survey/nginx-conf.d",
-        application_container_name: "survey-application"
+        config_dir: "/opt/survey/nginx-conf.d"
       }
  

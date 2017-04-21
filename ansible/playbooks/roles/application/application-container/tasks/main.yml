@@ -3,7 +3,7 @@
 - name: create application container
   docker_container:
     name: "{{ container_name }}"
-    #restart_policy: always
+    restart_policy: always
     #restart: yes
     recreate: yes
     image: ikudlay/survey-application

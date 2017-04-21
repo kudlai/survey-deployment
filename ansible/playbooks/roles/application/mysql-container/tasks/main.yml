@@ -4,7 +4,7 @@
   docker_container:
     name: "{{ container_name }}"
     restart_policy: always
-    restart: yes
+    #restart: yes
     image: mysql
     env:
       MYSQL_USER: "{{ db_user }}"

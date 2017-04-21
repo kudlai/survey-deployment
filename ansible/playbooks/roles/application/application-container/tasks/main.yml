@@ -5,7 +5,7 @@
     name: "{{ container_name }}"
     restart_policy: always
     #restart: yes
-    recreate: yes
+    #recreate: yes
     image: ikudlay/survey-application
     env:
       MYSQL_USER: "{{ db_user }}"
